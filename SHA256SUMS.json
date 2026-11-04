@@ -1,0 +1,17 @@
+{
+  "README.md": "916105e4ea530c63338eb7270a387961b20769505092ccde4326cef5890320a0",
+  "engine_probe.py": "36e611c53281544d28e7a1a8e4469f394cffef49580d9c2f1b9d883f9c5f47f3",
+  "engine_probe_results.json": "014d6a1282b1384eb84ea5d7f01690f49144e8c1e010c523406aaf76f885d3be",
+  "experiment.py": "6a91edcbb5c2d6d38b7ce21e5cb7146f11f30e78330e3de9ce51206bf5a85529",
+  "inspect_clauses.py": "ec2b1b9fc4d845412a9154aa1cd26b597c1a0b9e39edb59076b60ec42228c69c",
+  "integer_validation.py": "7ecbfb328729cd6aa74f4233333a4b819649b8064183509dc25fe90339b309d0",
+  "integer_validation_results.json": "28d30c64df864a21e40a8e9fa902c815370da47a4ec5a624e9d008796d0922cb",
+  "requirements.txt": "ea80c66f315d660062b2bb3a4278792a938b351ac1b9194da43e13ac6ffeb591",
+  "results/assertions_after_search.smt2": "fbd4d95c693ebfb9d4477a10ada624ebfcbf5a5daad1ca68cec92043c35cb020",
+  "results/base_constraints.smt2": "892b91b2be17f073d5ee8b7a8c764bad901b94972d9866977cb22777d7423fa8",
+  "results/clause_events.jsonl": "53a512c85cf7b04787790f13da2bd867aa0cd5211a07304b03f3bcb01ea9ace2",
+  "results/query_summary.csv": "3249ed1c2b9e85ead9b35d073e5874dbd7ac8eee4f20ce99bd6c9694e5b048e0",
+  "results/results.json": "399c979f6f633fbfd6fdea3192b2e7a7b9a0be9ab220be8be256578f8f5830a9",
+  "results/timing_summary.csv": "0407e5d8080b6e8e7223aa9aa9383f1b99836b224bbf0535a5c5e14ae9f692bc",
+  "results/toy_clause_trace.txt": "2a8fef1becd78f5ba11a6142a469673060d41d3c7c3ba8e3a111d944b76c55bd"
+}

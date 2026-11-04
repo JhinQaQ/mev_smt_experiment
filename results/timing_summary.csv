@@ -1,0 +1,4 @@
+mode,trials,median_check_ms,min_check_ms,max_check_ms,median_harness_ms,unknown_queries
+fresh,5,7758.9164200000005,7568.848644,8406.47243,7809.649949,0
+assumptions,5,440.044311,412.909591,472.880687,562.263111,0
+push_pop,5,431.513576,421.554994,472.948725,539.11253,0

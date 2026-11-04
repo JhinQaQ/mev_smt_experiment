@@ -1,0 +1,626 @@
+{
+  "experiment": "Clause callback and engine selection probe",
+  "formula": "0 <= amount <= 4; 4*amount - amount*amount >= 41/10",
+  "expected_result": "unsat, because 4*q-q*q = 4-(q-2)^2 <= 4",
+  "isolation": "Each configuration runs in a fresh Python process.",
+  "interpretation_notes": [
+    "Assumption and encoding events are not learned clauses.",
+    "Inference events need not equal the currently retained clause database.",
+    "Counters and callback coverage depend on engine and Z3 version.",
+    "Registering a callback can alter the selected solving engine.",
+    "An empty trace is not evidence that the solver performs no learning.",
+    "Timings are diagnostic only, not a solver performance benchmark."
+  ],
+  "runs": [
+    {
+      "solver": "Solver",
+      "callback_enabled": false,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [],
+      "event_counts_by_hint": {},
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "elapsed_check_seconds": 0.002075246000003972,
+      "result": "unsat",
+      "statistics": {
+        "nlsat conflicts": 1,
+        "nlsat propagations": 4,
+        "nlsat stages": 1,
+        "num allocs": 207822,
+        "rlimit count": 387,
+        "max memory": 19.51,
+        "memory": 19.51,
+        "time": 0.001
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "Solver",
+      "callback_enabled": true,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(>= amount 0.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(<= amount 4.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0))"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "smt",
+          "category": "theory_inference",
+          "proof_sexpr": "smt",
+          "dependencies": [],
+          "literals": [
+            "(>= amount 0.0)",
+            "(<= amount 4.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "smt",
+          "category": "theory_inference",
+          "proof_sexpr": "smt",
+          "dependencies": [],
+          "literals": [
+            "(not (>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0)))"
+          ]
+        }
+      ],
+      "event_counts_by_hint": {
+        "assumption": 3,
+        "smt": 2
+      },
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "elapsed_check_seconds": 0.001096651000352722,
+      "result": "unsat",
+      "statistics": {
+        "conflicts": 1,
+        "final checks": 1,
+        "num checks": 1,
+        "mk bool var": 3,
+        "arith-lower": 1,
+        "arith-upper": 2,
+        "arith-conflicts": 1,
+        "arith-make-feasible": 5,
+        "arith-pivots": 7,
+        "arith-bp-rows-analyzed": 1,
+        "arith-max-columns": 7,
+        "arith-max-rows": 1,
+        "arith-grobner-calls": 1,
+        "arith-nla-lemmas": 1,
+        "levelwise calls": 1,
+        "num allocs": 33939,
+        "rlimit count": 212,
+        "max memory": 17.66,
+        "memory": 17.66
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "SolverFor_QF_NRA",
+      "callback_enabled": false,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [],
+      "event_counts_by_hint": {},
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "elapsed_check_seconds": 0.0018286049999005627,
+      "result": "unsat",
+      "statistics": {
+        "nlsat conflicts": 1,
+        "nlsat propagations": 4,
+        "nlsat stages": 1,
+        "num allocs": 179750,
+        "rlimit count": 373,
+        "max memory": 19.32,
+        "memory": 19.32,
+        "time": 0.001
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "SolverFor_QF_NRA",
+      "callback_enabled": true,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(>= amount 0.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(<= amount 4.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0))"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "smt",
+          "category": "theory_inference",
+          "proof_sexpr": "smt",
+          "dependencies": [],
+          "literals": [
+            "(>= amount 0.0)",
+            "(<= amount 4.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "smt",
+          "category": "theory_inference",
+          "proof_sexpr": "smt",
+          "dependencies": [],
+          "literals": [
+            "(not (>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0)))"
+          ]
+        }
+      ],
+      "event_counts_by_hint": {
+        "assumption": 3,
+        "smt": 2
+      },
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "elapsed_check_seconds": 0.002085581999835995,
+      "result": "unsat",
+      "statistics": {
+        "conflicts": 1,
+        "final checks": 1,
+        "num checks": 1,
+        "mk bool var": 3,
+        "arith-lower": 1,
+        "arith-upper": 2,
+        "arith-conflicts": 1,
+        "arith-make-feasible": 5,
+        "arith-pivots": 7,
+        "arith-bp-rows-analyzed": 1,
+        "arith-max-columns": 7,
+        "arith-max-rows": 1,
+        "arith-grobner-calls": 1,
+        "arith-nla-lemmas": 1,
+        "levelwise calls": 1,
+        "num allocs": 24553,
+        "rlimit count": 212,
+        "max memory": 17.47,
+        "memory": 17.47,
+        "time": 0.001
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "SimpleSolver",
+      "callback_enabled": false,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [],
+      "event_counts_by_hint": {},
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0)))\n",
+      "elapsed_check_seconds": 0.0009577529999660328,
+      "result": "unsat",
+      "statistics": {
+        "conflicts": 1,
+        "final checks": 1,
+        "num checks": 1,
+        "mk bool var": 3,
+        "arith-lower": 1,
+        "arith-upper": 2,
+        "arith-conflicts": 1,
+        "arith-make-feasible": 5,
+        "arith-pivots": 7,
+        "arith-bp-rows-analyzed": 1,
+        "arith-max-columns": 7,
+        "arith-max-rows": 1,
+        "arith-grobner-calls": 1,
+        "arith-nla-lemmas": 1,
+        "levelwise calls": 1,
+        "num allocs": 17488,
+        "rlimit count": 212,
+        "max memory": 17.34,
+        "memory": 17.34
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0)))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "SimpleSolver",
+      "callback_enabled": true,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(>= amount 0.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(<= amount 4.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "assumption",
+          "category": "assumption_or_encoding",
+          "proof_sexpr": "assumption",
+          "dependencies": [],
+          "literals": [
+            "(>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0))"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "smt",
+          "category": "theory_inference",
+          "proof_sexpr": "smt",
+          "dependencies": [],
+          "literals": [
+            "(>= amount 0.0)",
+            "(<= amount 4.0)"
+          ]
+        },
+        {
+          "phase": "check",
+          "hint": "smt",
+          "category": "theory_inference",
+          "proof_sexpr": "smt",
+          "dependencies": [],
+          "literals": [
+            "(not (>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0)))"
+          ]
+        }
+      ],
+      "event_counts_by_hint": {
+        "assumption": 3,
+        "smt": 2
+      },
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0)))\n",
+      "elapsed_check_seconds": 0.0011276379996161268,
+      "result": "unsat",
+      "statistics": {
+        "conflicts": 1,
+        "final checks": 1,
+        "num checks": 1,
+        "mk bool var": 3,
+        "arith-lower": 1,
+        "arith-upper": 2,
+        "arith-conflicts": 1,
+        "arith-make-feasible": 5,
+        "arith-pivots": 7,
+        "arith-bp-rows-analyzed": 1,
+        "arith-max-columns": 7,
+        "arith-max-rows": 1,
+        "arith-grobner-calls": 1,
+        "arith-nla-lemmas": 1,
+        "levelwise calls": 1,
+        "num allocs": 23648,
+        "rlimit count": 212,
+        "max memory": 17.44,
+        "memory": 17.44
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0)))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(>= (+ (* 4.0 amount) (* (- 1.0) amount amount)) (/ 41.0 10.0))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "Tactic_smt",
+      "callback_enabled": false,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [],
+      "event_counts_by_hint": {},
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "elapsed_check_seconds": 0.0010342880000280275,
+      "result": "unsat",
+      "statistics": {
+        "conflicts": 1,
+        "final checks": 1,
+        "num checks": 1,
+        "mk bool var": 3,
+        "arith-lower": 1,
+        "arith-upper": 2,
+        "arith-conflicts": 1,
+        "arith-make-feasible": 5,
+        "arith-pivots": 7,
+        "arith-bp-rows-analyzed": 1,
+        "arith-max-columns": 7,
+        "arith-max-rows": 1,
+        "arith-grobner-calls": 1,
+        "arith-nla-lemmas": 1,
+        "levelwise calls": 1,
+        "num allocs": 32478,
+        "rlimit count": 213,
+        "max memory": 17.25,
+        "memory": 16.74
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "Tactic_smt",
+      "callback_enabled": true,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [],
+      "event_counts_by_hint": {},
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "elapsed_check_seconds": 0.0011171229998581111,
+      "result": "unsat",
+      "statistics": {
+        "conflicts": 1,
+        "final checks": 1,
+        "num checks": 1,
+        "mk bool var": 3,
+        "arith-lower": 1,
+        "arith-upper": 2,
+        "arith-conflicts": 1,
+        "arith-make-feasible": 5,
+        "arith-pivots": 7,
+        "arith-bp-rows-analyzed": 1,
+        "arith-max-columns": 7,
+        "arith-max-rows": 1,
+        "arith-grobner-calls": 1,
+        "arith-nla-lemmas": 1,
+        "levelwise calls": 1,
+        "num allocs": 42108,
+        "rlimit count": 213,
+        "max memory": 17.31,
+        "memory": 16.8
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "Tactic_qfnra_nlsat",
+      "callback_enabled": false,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [],
+      "event_counts_by_hint": {},
+      "input_assertions_before_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_before_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "elapsed_check_seconds": 0.0008348770002157835,
+      "result": "unsat",
+      "statistics": {
+        "nlsat conflicts": 1,
+        "nlsat propagations": 4,
+        "nlsat stages": 1,
+        "num allocs": 6864,
+        "rlimit count": 339,
+        "max memory": 16.9,
+        "memory": 16.9
+      },
+      "sexpr_after_check": "(declare-fun amount () Real)\n(assert (>= amount 0.0))\n(assert (<= amount 4.0))\n(assert (<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount))))\n",
+      "input_assertions_after_check": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "sexpr_unchanged": true,
+      "input_assertions_unchanged": true
+    },
+    {
+      "solver": "Tactic_qfnra_nlsat",
+      "callback_enabled": true,
+      "z3_version": "5.3.3",
+      "python_version": "3.12.14",
+      "timeout_ms": 3000,
+      "input_assertions": [
+        "(>= amount 0.0)",
+        "(<= amount 4.0)",
+        "(<= (/ 41.0 10.0) (- (* 4.0 amount) (* amount amount)))"
+      ],
+      "events": [],
+      "event_counts_by_hint": {},
+      "error": {
+        "phase": "register_callback",
+        "type": "Z3Exception",
+        "message": "b'tactic does not support clause logging'"
+      }
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+Z3: 5.3.3 engine: SimpleSolver
+Illustrative revenue: 4*amount - amount*amount
+Base input assertions: [amount >= 0, amount <= 4]
+
+REQUIRED REVENUE >= 3
+Added input: Implies(require_revenue_3, 3 <= 4*amount - amount*amount)
+Result: sat
+Model amount: 3
+Model revenue: 3
+New observed events by hint: {'assumption': 5, 'smt': 4}
+Observed events, with assumptions distinguished from inferences:
+  [ASSUMPTION / ENCODING] (amount >= 0)
+  [ASSUMPTION / ENCODING] (amount <= 4)
+  [ASSUMPTION / ENCODING] (Not(require_revenue_3)) OR (4*amount + -1*amount*amount >= 3)
+  [ASSUMPTION / ENCODING] (Not(require_revenue_3)) OR (4*amount + -1*amount*amount >= 3)
+  [THEORY INFERENCE] (amount >= 0) OR (amount <= 4)
+  [ASSUMPTION / ENCODING] (require_revenue_3)
+  [THEORY INFERENCE] (amount <= 3) OR (amount >= 0)
+  [THEORY INFERENCE] (Not(amount <= 3)) OR (amount <= 4)
+  [THEORY INFERENCE] (amount <= 3) OR (Not(4*amount + -1*amount*amount >= 3))
+Cumulative conflict / clause / lemma counters: {'mk clause binary': 1, 'arith-conflicts': 1, 'arith-nla-lemmas': 1}
+
+REQUIRED REVENUE >= 4.1
+Added input: Implies(require_revenue_4_1,
+        41/10 <= 4*amount - amount*amount)
+Result: unsat
+New observed events by hint: {'assumption': 3, 'smt': 3}
+Observed events, with assumptions distinguished from inferences:
+  [ASSUMPTION / ENCODING] (Not(require_revenue_4_1)) OR (4*amount + -1*amount*amount >= 41/10)
+  [ASSUMPTION / ENCODING] (Not(require_revenue_4_1)) OR (4*amount + -1*amount*amount >= 41/10)
+  [THEORY INFERENCE] (Not(4*amount + -1*amount*amount >= 41/10)) OR (4*amount + -1*amount*amount >= 3)
+  [THEORY INFERENCE] (4*amount + -1*amount*amount >= 3) OR (Not(4*amount + -1*amount*amount >= 41/10))
+  [ASSUMPTION / ENCODING] (require_revenue_4_1)
+  [THEORY INFERENCE] (Not(4*amount + -1*amount*amount >= 41/10))
+Cumulative conflict / clause / lemma counters: {'conflicts': 1, 'mk clause binary': 3, 'arith-conflicts': 2, 'arith-nla-lemmas': 2}
+
+REQUIRED REVENUE >= 3.9
+Added input: Implies(require_revenue_3_9,
+        39/10 <= 4*amount - amount*amount)
+Result: sat
+Model amount: 2
+Model revenue: 4
+New observed events by hint: {'assumption': 4, 'smt': 12, 'rup': 1}
+Observed events, with assumptions distinguished from inferences:
+  [ASSUMPTION / ENCODING] (Not(require_revenue_3_9)) OR (4*amount + -1*amount*amount >= 39/10)
+  [ASSUMPTION / ENCODING] (Not(require_revenue_3_9)) OR (4*amount + -1*amount*amount >= 39/10)
+  [THEORY INFERENCE] (Not(4*amount + -1*amount*amount >= 39/10)) OR (4*amount + -1*amount*amount >= 3)
+  [THEORY INFERENCE] (4*amount + -1*amount*amount >= 3) OR (Not(4*amount + -1*amount*amount >= 39/10))
+  [THEORY INFERENCE] (4*amount + -1*amount*amount >= 39/10) OR (Not(4*amount + -1*amount*amount >= 41/10))
+  [THEORY INFERENCE] (Not(4*amount + -1*amount*amount >= 41/10)) OR (4*amount + -1*amount*amount >= 39/10)
+  [ASSUMPTION / ENCODING] (require_revenue_3_9)
+  [ASSUMPTION / ENCODING] (poly!0)
+  [THEORY INFERENCE] (Not(4*amount + -1*amount*amount >= 41/10))
+  [THEORY INFERENCE] (Not(4*amount + -1*amount*amount >= 41/10))
+  [PROPOSITIONAL INFERENCE] (Not(4*amount + -1*amount*amount >= 41/10))
+  [THEORY INFERENCE] (amount <= 3) OR (amount >= 0)
+  [THEORY INFERENCE] (Not(amount <= 3)) OR (amount <= 4)
+  [THEORY INFERENCE] (amount <= 3) OR (Not(4*amount + -1*amount*amount >= 39/10))
+  [THEORY INFERENCE] (2*amount <= 5) OR (Not(4*amount + -1*amount*amount >= 39/10))
+  [THEORY INFERENCE] (8*amount <= 19) OR (Not(4*amount + -1*amount*amount >= 39/10))
+  [THEORY INFERENCE] (32*amount <= 75) OR (Not(4*amount + -1*amount*amount >= 39/10))
+Cumulative conflict / clause / lemma counters: {'conflicts': 2, 'mk clause binary': 6, 'arith-conflicts': 7, 'arith-nla-lemmas': 7}
+
+REQUIRED REVENUE >= 3.9
+Repeated query; no input assertion added.
+Result: sat
+Model amount: 9/4
+Model revenue: 63/16
+New observed events by hint: {'assumption': 1, 'smt': 21}
+Observed events, with assumptions distinguished from inferences:
+  [ASSUMPTION / ENCODING] (require_revenue_3_9)
+  [THEORY INFERENCE] (amount <= 0) OR (amount >= 0)
+  [THEORY INFERENCE] (Not(amount <= 0)) OR (amount <= 4)
+  [THEORY INFERENCE] (Not(amount >= 4)) OR (amount >= 0)
+  [THEORY INFERENCE] (Not(amount >= 4)) OR (Not(amount <= 0))
+  [THEORY INFERENCE] (Not(amount <= 0)) OR (Not(amount >= 4))
+  [THEORY INFERENCE] (amount >= 4) OR (amount <= 4)
+  [THEORY INFERENCE] (Not(4*amount + -1*amount*amount <= 0)) OR (Not(4*amount + -1*amount*amount >= 3))
+  [THEORY INFERENCE] (amount <= 0) OR (Not(amount >= 4)) OR (4*amount + -1*amount*amount <= 0)
+  [THEORY INFERENCE] (amount <= 0) OR (Not(amount >= 4)) OR (4*amount + -1*amount*amount <= 0)
+  [THEORY INFERENCE] (Not(amount >= 3)) OR (amount >= 0)
+  [THEORY INFERENCE] (amount >= 3) OR (Not(amount >= 4))
+  [THEORY INFERENCE] (Not(amount >= 3)) OR (Not(amount <= 0))
+  [THEORY INFERENCE] (amount >= 3) OR (amount <= 4)
+  [THEORY INFERENCE] (Not(amount >= 3)) OR (Not(amount >= 3)) OR (amount*amount >= 9)
+  [THEORY INFERENCE] (Not(amount >= 3)) OR (amount*amount >= 9)
+  [THEORY INFERENCE] (amount <= 2) OR (amount >= 0)
+  [THEORY INFERENCE] (Not(amount <= 2)) OR (Not(amount >= 3))
+  [THEORY INFERENCE] (amount <= 2) OR (Not(amount <= 0))
+  [THEORY INFERENCE] (Not(amount <= 2)) OR (amount <= 4)
+  [THEORY INFERENCE] (Not(amount <= 2)) OR (2*amount + -1*amount*amount >= 0) OR (Not(4*amount + -1*amount*amount >= 39/10))
+  [THEORY INFERENCE] (Not(amount <= 2)) OR (2*amount + -1*amount*amount >= 0) OR (Not(4*amount + -1*amount*amount >= 39/10))
+Cumulative conflict / clause / lemma counters: {'conflicts': 2, 'mk clause': 4, 'mk clause binary': 6, 'arith-conflicts': 10, 'arith-nla-lemmas': 10, 'arith-nla-throttled-lemmas': 4}
+
+Final asserted inputs, not the learned-clause database:
+[amount >= 0,
+ amount <= 4,
+ Or(Not(require_revenue_3),
+    4*amount + -1*amount*amount >= 3),
+ Or(Not(require_revenue_4_1),
+    4*amount + -1*amount*amount >= 41/10),
+ Or(Not(require_revenue_3_9),
+    4*amount + -1*amount*amount >= 39/10)]

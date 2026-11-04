@@ -1,0 +1,263 @@
+{
+  "experiment": "Exact integer two-pool AMM profit-boundary validation",
+  "created_utc": "2026-11-03T23:35:53.374587+00:00",
+  "runtime": {
+    "z3_version": "5.3.3",
+    "python_version": "3.12.14",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39"
+  },
+  "configuration": {
+    "solver_constructor": "z3.SimpleSolver",
+    "timeout_ms_per_check": 2000,
+    "random_seed": 0,
+    "callback_instrumentation": false,
+    "target_sequence_per_mode": [
+      58,
+      59
+    ],
+    "trials_per_mode": 1
+  },
+  "model": {
+    "route": "A -> B in pool 1; B -> A in distinct pool 2",
+    "pool1_reserves": {
+      "A": 10000,
+      "B": 25000
+    },
+    "pool2_reserves": {
+      "B": 20000,
+      "A": 10000
+    },
+    "input_a_domain_inclusive": [
+      1,
+      5000
+    ],
+    "fee_fraction_per_swap": "3/1000",
+    "amount_after_fee_multiplier": "997/1000",
+    "amount_out_formula": "floor(997 * amount_in * reserve_out / (1000 * reserve_in + 997 * amount_in))",
+    "floor_encoding": "For each swap, denominator > 0 and output * denominator <= numerator < (output + 1) * denominator",
+    "smt_theory": "Nonlinear integer arithmetic with arbitrary-precision integers",
+    "profit_definition": "Final A output minus initial A input",
+    "limitations": [
+      "Illustrative fixed reserves and route, with each distinct pool used once.",
+      "All quantities are arbitrary raw token units.",
+      "Gross profit excludes gas, flash-loan fees, and other transaction costs.",
+      "Standard constant-product swaps without transfer-tax tokens or other token behavior.",
+      "This is an AMM arithmetic model, not an EVM execution or a claim of live tradability."
+    ]
+  },
+  "exhaustive_oracle": {
+    "method": "Direct Python integer arithmetic for every admissible input",
+    "inputs_checked": 5000,
+    "max_gross_profit_a": 58,
+    "maximizer_count": 100,
+    "maximizing_inputs_a": [
+      456,
+      460,
+      463,
+      464,
+      467,
+      468,
+      469,
+      470,
+      471,
+      472,
+      473,
+      474,
+      475,
+      476,
+      477,
+      478,
+      479,
+      480,
+      481,
+      482,
+      483,
+      484,
+      485,
+      486,
+      487,
+      488,
+      489,
+      490,
+      491,
+      492,
+      493,
+      494,
+      495,
+      496,
+      497,
+      498,
+      499,
+      500,
+      501,
+      502,
+      503,
+      504,
+      505,
+      506,
+      507,
+      508,
+      509,
+      510,
+      511,
+      512,
+      513,
+      514,
+      515,
+      516,
+      517,
+      518,
+      519,
+      520,
+      521,
+      522,
+      523,
+      524,
+      525,
+      526,
+      527,
+      528,
+      529,
+      530,
+      531,
+      532,
+      533,
+      534,
+      535,
+      536,
+      537,
+      538,
+      539,
+      540,
+      541,
+      542,
+      543,
+      544,
+      545,
+      546,
+      547,
+      548,
+      549,
+      550,
+      551,
+      552,
+      553,
+      554,
+      555,
+      556,
+      557,
+      558,
+      561,
+      562,
+      565,
+      569
+    ],
+    "first_maximizing_witness": {
+      "input_a": 456,
+      "intermediate_b": 1087,
+      "output_a": 514,
+      "gross_profit_a": 58
+    },
+    "last_maximizing_witness": {
+      "input_a": 569,
+      "intermediate_b": 1342,
+      "output_a": 627,
+      "gross_profit_a": 58
+    },
+    "enumeration_seconds": 0.0029630230001203017
+  },
+  "timing_interpretation": {
+    "diagnostic_single_runs_only": true,
+    "benchmark": false,
+    "measured_region": "solver.check() only",
+    "excluded_from_check_time": [
+      "Constraint construction and solver setup",
+      "push, adding the threshold constraint, and pop",
+      "Model extraction and direct witness validation",
+      "Exhaustive oracle enumeration"
+    ],
+    "caveats": [
+      "No warmup or repeated-trial aggregation is performed.",
+      "The same solver constructor and settings are used for both modes.",
+      "Persistent solving can retain multiple kinds of state; timings do not isolate learned clauses.",
+      "The reused solver receives the listed targets in order, with threshold assertions scoped by push and pop.",
+      "UNKNOWN remains UNKNOWN and cannot establish infeasibility or optimality."
+    ]
+  },
+  "checks": [
+    {
+      "mode": "fresh",
+      "target_gross_profit_a": 58,
+      "result": "sat",
+      "check_seconds": 0.003712633000304777,
+      "oracle_expected_result": "sat",
+      "oracle_feasible_input_count": 100,
+      "matches_oracle": true,
+      "witness": {
+        "input_a": 513,
+        "intermediate_b": 1216,
+        "output_a": 571,
+        "gross_profit_a": 58
+      },
+      "witness_validation": {
+        "input_in_domain": true,
+        "outputs_in_pool_bounds": true,
+        "positive_denominators": true,
+        "first_floor_inequalities": true,
+        "second_floor_inequalities": true,
+        "matches_direct_integer_evaluation": true,
+        "meets_profit_target": true,
+        "all_passed": true
+      }
+    },
+    {
+      "mode": "fresh",
+      "target_gross_profit_a": 59,
+      "result": "unsat",
+      "check_seconds": 0.003816290000031586,
+      "oracle_expected_result": "unsat",
+      "oracle_feasible_input_count": 0,
+      "matches_oracle": true
+    },
+    {
+      "mode": "reused_push_pop",
+      "target_gross_profit_a": 58,
+      "result": "sat",
+      "check_seconds": 0.00579885600018315,
+      "oracle_expected_result": "sat",
+      "oracle_feasible_input_count": 100,
+      "matches_oracle": true,
+      "witness": {
+        "input_a": 513,
+        "intermediate_b": 1216,
+        "output_a": 571,
+        "gross_profit_a": 58
+      },
+      "witness_validation": {
+        "input_in_domain": true,
+        "outputs_in_pool_bounds": true,
+        "positive_denominators": true,
+        "first_floor_inequalities": true,
+        "second_floor_inequalities": true,
+        "matches_direct_integer_evaluation": true,
+        "meets_profit_target": true,
+        "all_passed": true
+      }
+    },
+    {
+      "mode": "reused_push_pop",
+      "target_gross_profit_a": 59,
+      "result": "unsat",
+      "check_seconds": 0.0006103089999669464,
+      "oracle_expected_result": "unsat",
+      "oracle_feasible_input_count": 0,
+      "matches_oracle": true
+    }
+  ],
+  "validation_summary": {
+    "status": "passed",
+    "all_sat_models_valid": true,
+    "all_definitive_answers_match_oracle": true,
+    "unknown_count": 0
+  }
+}
